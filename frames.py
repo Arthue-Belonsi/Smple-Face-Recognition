@@ -2,52 +2,52 @@ import cv2
 import os
 
 
-# Função para extrair e salvar os frames do vídeo
+# extract the video frames
 def extract_frames(video_path, output_dir):
-    # Abre o vídeo para leitura
+    # open the video for reading
     video = cv2.VideoCapture(video_path)
 
-    # Verifica se o vídeo foi aberto corretamente
+    # Check if the video opened correctly
     if not video.isOpened():
         print("Erro ao abrir o vídeo.")
         return
 
-    # Cria o diretório de saída, se ainda não existir
+    # Creates the output directory if it does not already exist
     os.makedirs(output_dir, exist_ok=True)
 
-    # Contador para numerar os frames
+    # Counter to number the frames
     frame_count = 0
 
     while True:
-        # Lê o próximo frame do vídeo
+        # Read the next frame of the video
         ret, frame = video.read()
 
-        # Verifica se o frame foi lido corretamente
+        #Checks if the frame was read correctly
         if not ret:
             break
 
-        # Define o nome do arquivo para salvar o frame
+        # Sets the file name to save the frame
         frame_filename = f"{frame_count}.jpg"
 
-        # Define o caminho completo para salvar o frame
+        # Sets the full path to save the frame
         frame_path = os.path.join(output_dir, frame_filename)
 
-        # Salva o frame no diretório de saída
+        # Saves the frame to the output directory
         cv2.imwrite(frame_path, frame)
 
-        # Incrementa o contador de frames
+        #Increments the frame counter
         frame_count += 1
 
-    # Libera os recursos utilizados
+    # Releases used resources
     video.release()
     cv2.destroyAllWindows()
 
 
-# Caminho para o vídeo de entrada
+# Path to input video
 video_path = "FACE2.mp4"
 
-# Diretório de saída para os frames
+# Output directory for frames
 output_dir = "FRAMES"
 
-# Chama a função para extrair os frames do vídeo
+# Call the function to extract the frames from the video
 extract_frames(video_path, output_dir)
